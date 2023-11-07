@@ -10,14 +10,14 @@ Implements a portfolio optimization framework in C++, with results compared to e
 
 ## Data:
 
-Procedure:
+## Procedure:
 
 #1: Understand the external libraries that will be used and for what purposes:
-C++ compiler with C++11 support or higher
-QuantLib library
-Eigen library (for matrix operations)
-NLopt library (for numerical optimization)
-Gnuplot and the Gnuplot C++ interface (for plotting)
+* C++ compiler with C++11 support or higher
+* QuantLib library
+* Eigen library (for matrix operations)
+* NLopt library (for numerical optimization)
+* Gnuplot and the Gnuplot C++ interface (for plotting)
 
 #2: Getting the data:
 Will use preexisting data set of list companies in the Bombay Stock Exchange.

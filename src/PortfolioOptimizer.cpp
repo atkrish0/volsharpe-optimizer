@@ -1,66 +1,53 @@
-#include <ql/quantlib.hpp>
-#include <Eigen/Dense>
-#include <iostream>
-#include <vector>
+// PortfolioOptimizer.cpp
 
-using namespace QuantLib;
+#include "PortfolioOptimizer.hpp"
+#include <QuantLib/QuantLib.hpp>
 
-class PortfolioOptimizer {
-private:
-    Eigen::MatrixXd covarianceMatrix;
-    Eigen::VectorXd expectedReturns;
+PortfolioOptimizer::PortfolioOptimizer(const Eigen::VectorXd &meanReturns,
+                                       const Eigen::MatrixXd &covMatrix,
+                                       double riskFreeRate)
+    : meanReturns_(meanReturns), covMatrix_(covMatrix), riskFreeRate_(riskFreeRate) {
+    // Initially, set weights to equal distribution or another starting guess
+    weights_ = Eigen::VectorXd::Constant(meanReturns.size(), 1.0 / meanReturns.size());
+}
 
-public:
-    PortfolioOptimizer(const Eigen::MatrixXd& covMatrix, const Eigen::VectorXd& expReturns)
-        : covarianceMatrix(covMatrix), expectedReturns(expReturns) {}
+void PortfolioOptimizer::setConstraints(const Eigen::VectorXd &constraints) {
+    constraints_ = constraints;
+}
 
-    Real objectiveFunction(const std::vector<Real>& weights, bool needGradient) {
-        // Define your objective function here.
-        // For instance, it could be the portfolio variance or the negative Sharpe ratio.
-    }
+void PortfolioOptimizer::optimizeForSharpeRatio() {
+    // Here we would define the optimization problem
+    // This would involve setting up the objective function to maximize the Sharpe ratio
+    // And adding any constraints necessary - such as the weights summing to 1
 
-    // Define constraints such as weights summing up to 1 and no short selling.
-    std::vector<Constraint> constraints;
+    // For illustration, let's say we use a QuantLib optimizer, the process would look like:
+    // QuantLib::OptimizationProblem problem(...);
+    // QuantLib::OptimizationMethod method(...);
+    // method.solve(problem);
 
-    // Function to optimize portfolio for a given target return.
-    std::vector<Real> optimizeForTargetReturn(Real targetReturn) {
-        // Optimization code using QuantLib.
-    }
+    // For now, let's just assign some dummy values to the weights
+    weights_ = Eigen::VectorXd::Random(meanReturns_.size()).cwiseAbs(); // Random positive weights
+    weights_ /= weights_.sum(); // Normalize so that they sum up to 1
+}
 
-    // Function to optimize portfolio for maximum Sharpe ratio.
-    std::vector<Real> optimizeForSharpeRatio(Real riskFreeRate) {
-        // Optimization code using QuantLib.
-    }
+Eigen::VectorXd PortfolioOptimizer::getOptimalWeights() const {
+    return weights_;
+}
 
-    // Function to compute the efficient frontier.
-    std::vector<std::pair<Real, Real>> computeEfficientFrontier() {
-        // Compute the efficient frontier.
-        // Return a vector of pairs where each pair contains the portfolio return and corresponding standard deviation.
-    }
-};
+double PortfolioOptimizer::getExpectedReturn() const {
+    return weights_.dot(meanReturns_);
+}
 
-int main() {
-    // Assuming you have already created an instance of MarketData and calculated the covariance matrix and expected returns.
-    Eigen::MatrixXd covMatrix = ...; // From MarketData instance
-    Eigen::VectorXd expReturns = ...; // Calculate expected returns
+double PortfolioOptimizer::getExpectedVolatility() const {
+    return std::sqrt(weights_.transpose() * covMatrix_ * weights_);
+}
 
-    Real riskFreeRate = ...; // Define the risk-free rate
+double PortfolioOptimizer::getSharpeRatio() const {
+    return calculateSharpeRatio(weights_);
+}
 
-    // Create an instance of the PortfolioOptimizer.
-    PortfolioOptimizer optimizer(covMatrix, expReturns);
-
-    // Example: Optimize for a given target return.
-    Real targetReturn = ...; // Define a target return
-    std::vector<Real> weightsForTargetReturn = optimizer.optimizeForTargetReturn(targetReturn);
-
-    // Example: Optimize for maximum Sharpe ratio.
-    std::vector<Real> weightsForMaxSharpe = optimizer.optimizeForSharpeRatio(riskFreeRate);
-
-    // Calculate and plot the efficient frontier.
-    std::vector<std::pair<Real, Real>> efficientFrontier = optimizer.computeEfficientFrontier();
-
-    // Code to plot the efficient frontier would go here.
-    // You may use external libraries or tools like GNUPLOT for plotting in C++.
-
-    return 0;
+double PortfolioOptimizer::calculateSharpeRatio(const Eigen::VectorXd &weights) const {
+    double portfolioReturn = weights.dot(meanReturns_);
+    double portfolioVolatility = std::sqrt(weights.transpose() * covMatrix_ * weights);
+    return (portfolioReturn - riskFreeRate_) / portfolioVolatility;
 }

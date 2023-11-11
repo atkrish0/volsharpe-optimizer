@@ -1,4 +1,5 @@
 #include "Statistics.h"
+#include <cmath>
 
 // Calculating daily returns
 Eigen::MatrixXd Statistics::calculateReturns(const Eigen::MatrixXd& prices) {
@@ -31,13 +32,17 @@ Eigen::MatrixXd Statistics::correlationMatrix(const Eigen::MatrixXd& returns) {
     Eigen::MatrixXd cov = covarianceMatrix(returns);
     Eigen::VectorXd std_dev = volatility(returns);
 
+    Eigen::MatrixXd corrMatrix = Eigen::MatrixXd(cov.rows(), cov.cols());
+
     for (int i = 0; i < cov.rows(); ++i) {
         for (int j = 0; j < cov.cols(); ++j) {
             cov(i, j) = cov(i, j) / (std_dev(i) * std_dev(j));
         }
     }
-    return cov;
+    return corrMatrix;
 }
+
+// =====================================================
 
 // Portfolio Expected Return
 double Statistics::portfolioExpectedReturn(const Eigen::VectorXd& weights, const Eigen::VectorXd& meanReturns) {

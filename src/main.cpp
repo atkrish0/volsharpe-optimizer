@@ -8,9 +8,9 @@ using namespace std;
 int main() {
 
     // Read stock prices from CSV
-    std::string filePath = "path/to/your/csvfile.csv"; // Update with the actual file path
-    int numberOfRows = 1000; // Update with the actual number of rows
-    int numberOfColumns = 5; // Assuming 5 stocks
+    std::string filePath = "data/portfolio.csv";
+    int numberOfRows = 494; 
+    int numberOfColumns = 5; 
     Eigen::MatrixXd portfolio = DataHandler::readCSV(filePath, numberOfRows, numberOfColumns);
 
     // Calculate daily returns, mean returns, etc. as before

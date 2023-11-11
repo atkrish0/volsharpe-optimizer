@@ -1,7 +1,5 @@
-// PortfolioOptimizer.cpp
-
-#include "PortfolioOptimizer.hpp"
-#include <QuantLib/QuantLib.hpp>
+#include "include/PortfolioOptimizer.h"
+// #include <QuantLib/QuantLib.hpp>
 
 PortfolioOptimizer::PortfolioOptimizer(const Eigen::VectorXd &meanReturns,
                                        const Eigen::MatrixXd &covMatrix,

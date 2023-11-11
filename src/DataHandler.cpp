@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-// Read CSV file and return data as  Eigen::MatrixXd
+// Read CSV file and return data as Eigen::MatrixXd
 Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols) {
 
     std::ifstream inFile(file);

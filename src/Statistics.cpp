@@ -10,24 +10,24 @@ Eigen::MatrixXd Statistics::calculateReturns(const Eigen::MatrixXd& prices) {
     return returns;
 }
 
-// Mean daily returns
+// Calculating Mean daily returns
 Eigen::VectorXd Statistics::meanDailyReturns(const Eigen::MatrixXd& returns) {
     return returns.colwise().mean();
 }
 
-// Covariance of daily returns
+// Calculating Covariance of daily returns
 Eigen::MatrixXd Statistics::covarianceMatrix(const Eigen::MatrixXd& returns) {
     int n = returns.rows();
     Eigen::MatrixXd centered = returns.rowwise() - returns.colwise().mean();
     return (centered.adjoint() * centered) / double(n - 1);
 }
 
-// Volatility (standard deviation)
+// Calculating Volatility (standard deviation)
 Eigen::VectorXd Statistics::volatility(const Eigen::MatrixXd& returns) {
     return (returns.rowwise() - returns.colwise().mean()).array().square().colwise().sum().sqrt() / sqrt(returns.rows());
 }
 
-// Correlation matrix
+// Calculating Correlation matrix
 Eigen::MatrixXd Statistics::correlationMatrix(const Eigen::MatrixXd& returns) {
     Eigen::MatrixXd cov = covarianceMatrix(returns);
     Eigen::VectorXd std_dev = volatility(returns);

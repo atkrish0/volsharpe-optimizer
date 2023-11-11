@@ -1,7 +1,7 @@
 #include <iostream>
-#include "DataHandler.h"
-#include "Statistics.h"
-#include "PortfolioOptimizer.h"
+#include "include/DataHandler.h"
+#include "include/Statistics.h"
+#include "include/PortfolioOptimizer.h"
 
 using namespace std;
 
@@ -26,12 +26,12 @@ int main() {
 
     // Eigen::MatrixXd covMatrix = marketData.getCovarianceMatrix();
     // std::cout << "Covariance Matrix:\n" << covMatrix << std::endl;
-    // OLD =========================
 
     // Assuming 'portfolio' is an Eigen::MatrixXd containing the stock prices
-    Eigen::MatrixXd portfolio; // Populate this with your data
+    // Eigen::MatrixXd portfolio; // Populate this with your data
+    // OLD =========================
 
-    // Example of output (you might format it as needed)
+    // Output stats
     std::cout << "Mean Daily Returns:\n" << meanReturns << "\n\n";
     std::cout << "Covariance Matrix:\n" << covMatrix << "\n\n";
     std::cout << "Volatility:\n" << volatility << "\n\n";

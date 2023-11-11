@@ -38,3 +38,25 @@ Eigen::MatrixXd Statistics::correlationMatrix(const Eigen::MatrixXd& returns) {
     }
     return cov;
 }
+
+// Portfolio Expected Return
+double Statistics::portfolioExpectedReturn(const Eigen::VectorXd& weights, const Eigen::VectorXd& meanReturns) {
+    return weights.dot(meanReturns);
+}
+
+// Portfolio Variance
+double Statistics::portfolioVariance(const Eigen::VectorXd& weights, const Eigen::MatrixXd& covMatrix) {
+    return weights.transpose() * covMatrix * weights;
+}
+
+// Portfolio Standard Deviation (Volatility)
+double Statistics::portfolioStandardDeviation(const Eigen::VectorXd& weights, const Eigen::MatrixXd& covMatrix) {
+    return std::sqrt(portfolioVariance(weights, covMatrix));
+}
+
+// Portfolio Sharpe Ratio
+double Statistics::portfolioSharpeRatio(const Eigen::VectorXd& weights, const Eigen::VectorXd& meanReturns, const Eigen::MatrixXd& covMatrix, double riskFreeRate) {
+    double expectedReturn = portfolioExpectedReturn(weights, meanReturns);
+    double volatility = portfolioStandardDeviation(weights, covMatrix);
+    return (expectedReturn - riskFreeRate) / volatility;
+}

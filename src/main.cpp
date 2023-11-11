@@ -1,7 +1,7 @@
 #include <iostream>
-#include "MarketData.hpp"
 #include "DataHandler.h"
 #include "Statistics.h"
+#include "PortfolioOptimizer.h"
 
 using namespace std;
 
@@ -21,11 +21,11 @@ int main() {
     Eigen::MatrixXd corrMatrix = Statistics::correlationMatrix(returns);
 
     // OLD ========================
-    std::string filename = "market_data.csv"; // Your local CSV file with closing prices
-    MarketData marketData(filename);
+    // std::string filename = "market_data.csv"; // Your local CSV file with closing prices
+    // MarketData marketData(filename);
 
-    Eigen::MatrixXd covMatrix = marketData.getCovarianceMatrix();
-    std::cout << "Covariance Matrix:\n" << covMatrix << std::endl;
+    // Eigen::MatrixXd covMatrix = marketData.getCovarianceMatrix();
+    // std::cout << "Covariance Matrix:\n" << covMatrix << std::endl;
     // OLD =========================
 
     // Assuming 'portfolio' is an Eigen::MatrixXd containing the stock prices

@@ -1,45 +1,29 @@
-// PortfolioOptimizer.hpp
-
-#ifndef PORTFOLIOOPTIMIZER_HPP
-#define PORTFOLIOOPTIMIZER_HPP
+#ifndef PORTFOLIOOPTIMIZER_H
+#define PORTFOLIOOPTIMIZER_H
 
 #include <Eigen/Dense>
 #include <vector>
+#include <random>
+
+struct PortfolioResult {
+    double return_;
+    double volatility;
+    double sharpeRatio;
+    std::vector<double> weights;
+};
 
 class PortfolioOptimizer {
 public:
-    // Constructor
-    PortfolioOptimizer(const Eigen::VectorXd &meanReturns,
-                       const Eigen::MatrixXd &covMatrix,
-                       double riskFreeRate);
-
-    // Method to set constraints, for example, the sum of weights equals 1
-    void setConstraints(const Eigen::VectorXd &constraints);
-
-    // Perform the optimization to find the portfolio with the maximum Sharpe ratio
-    void optimizeForSharpeRatio();
-
-    // Get the optimal weights after optimization
-    Eigen::VectorXd getOptimalWeights() const;
-
-    // Get the expected return of the optimized portfolio
-    double getExpectedReturn() const;
-
-    // Get the expected volatility of the optimized portfolio
-    double getExpectedVolatility() const;
-
-    // Get the Sharpe ratio of the optimized portfolio
-    double getSharpeRatio() const;
+    static std::vector<PortfolioResult> optimizePortfolio(const Eigen::VectorXd& meanReturns,
+                                                          const Eigen::MatrixXd& covMatrix,
+                                                          int numPortfolios, int numStocks);
 
 private:
-    Eigen::VectorXd meanReturns_; // Expected returns for each asset
-    Eigen::MatrixXd covMatrix_;   // Covariance matrix for the assets
-    Eigen::VectorXd weights_;     // Asset weights for the optimized portfolio
-    double riskFreeRate_;         // The risk-free rate
-    Eigen::VectorXd constraints_; // Constraints for the optimization problem
-
-    // Private method to calculate the Sharpe ratio
-    double calculateSharpeRatio(const Eigen::VectorXd &weights) const;
+    static std::vector<double> generateRandomWeights(int numStocks);
+    static double calculatePortfolioReturn(const Eigen::VectorXd& meanReturns,
+                                           const std::vector<double>& weights);
+    static double calculatePortfolioVolatility(const Eigen::MatrixXd& covMatrix,
+                                               const std::vector<double>& weights);
 };
 
-#endif // PORTFOLIOOPTIMIZER_HPP
+#endif // PORTFOLIOOPTIMIZER_H

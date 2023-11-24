@@ -1,51 +1,55 @@
 #include "PortfolioOptimizer.h"
-// #include <QuantLib/QuantLib.hpp>
 
-PortfolioOptimizer::PortfolioOptimizer(const Eigen::VectorXd &meanReturns,
-                                       const Eigen::MatrixXd &covMatrix,
-                                       double riskFreeRate)
-    : meanReturns_(meanReturns), covMatrix_(covMatrix), riskFreeRate_(riskFreeRate) {
-    // Initially, set weights to equal distribution or another starting guess
-    weights_ = Eigen::VectorXd::Constant(meanReturns.size(), 1.0 / meanReturns.size());
+// Generates random weights for portfolio
+std::vector<double> PortfolioOptimizer::generateRandomWeights(int numStocks) {
+    std::vector<double> weights(numStocks);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0, 1);
+
+    double sum = 0.0;
+    for (int i = 0; i < numStocks; ++i) {
+        weights[i] = dis(gen);
+        sum += weights[i];
+    }
+
+    // Normalize the weights so they sum to 1
+    for (double &weight : weights) {
+        weight /= sum;
+    }
+
+    return weights;
 }
 
-void PortfolioOptimizer::setConstraints(const Eigen::VectorXd &constraints) {
-    constraints_ = constraints;
+// Calculates the return of the portfolio
+double PortfolioOptimizer::calculatePortfolioReturn(const Eigen::VectorXd& meanReturns,
+                                                    const std::vector<double>& weights) {
+    double portfolioReturn = 0.0;
+    for (size_t i = 0; i < weights.size(); ++i) {
+        portfolioReturn += meanReturns[i] * weights[i];
+    }
+    return portfolioReturn * 252; // Assuming 252 trading days in a year
 }
 
-void PortfolioOptimizer::optimizeForSharpeRatio() {
-    // Here we would define the optimization problem
-    // This would involve setting up the objective function to maximize the Sharpe ratio
-    // And adding any constraints necessary - such as the weights summing to 1
-
-    // For illustration, let's say we use a QuantLib optimizer, the process would look like:
-    // QuantLib::OptimizationProblem problem(...);
-    // QuantLib::OptimizationMethod method(...);
-    // method.solve(problem);
-
-    // For now, let's just assign some dummy values to the weights
-    weights_ = Eigen::VectorXd::Random(meanReturns_.size()).cwiseAbs(); // Random positive weights
-    weights_ /= weights_.sum(); // Normalize so that they sum up to 1
+// Calculates the volatility of the portfolio
+double PortfolioOptimizer::calculatePortfolioVolatility(const Eigen::MatrixXd& covMatrix,
+                                                        const std::vector<double>& weights) {
+    Eigen::VectorXd w = Eigen::Map<const Eigen::VectorXd>(weights.data(), weights.size());
+    double volatility = std::sqrt(w.transpose() * covMatrix * w);
+    return volatility * std::sqrt(252); // Annualizing the volatility
 }
 
-Eigen::VectorXd PortfolioOptimizer::getOptimalWeights() const {
-    return weights_;
-}
-
-double PortfolioOptimizer::getExpectedReturn() const {
-    return weights_.dot(meanReturns_);
-}
-
-double PortfolioOptimizer::getExpectedVolatility() const {
-    return std::sqrt(weights_.transpose() * covMatrix_ * weights_);
-}
-
-double PortfolioOptimizer::getSharpeRatio() const {
-    return calculateSharpeRatio(weights_);
-}
-
-double PortfolioOptimizer::calculateSharpeRatio(const Eigen::VectorXd &weights) const {
-    double portfolioReturn = weights.dot(meanReturns_);
-    double portfolioVolatility = std::sqrt(weights.transpose() * covMatrix_ * weights);
-    return (portfolioReturn - riskFreeRate_) / portfolioVolatility;
+// Optimizes the portfolio over a number of random allocations
+std::vector<PortfolioResult> PortfolioOptimizer::optimizePortfolio(const Eigen::VectorXd& meanReturns,
+                                                                   const Eigen::MatrixXd& covMatrix,
+                                                                   int numPortfolios, int numStocks) {
+    std::vector<PortfolioResult> results;
+    for (int i = 0; i < numPortfolios; ++i) {
+        std::vector<double> w = generateRandomWeights(numStocks);
+        double portfolioReturn = calculatePortfolioReturn(meanReturns, w);
+        double portfolioVol = calculatePortfolioVolatility(covMatrix, w);
+        double sharpeRatio = portfolioReturn / portfolioVol;
+        results.push_back({portfolioReturn, portfolioVol, sharpeRatio, w});
+    }
+    return results;
 }

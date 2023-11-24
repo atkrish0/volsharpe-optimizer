@@ -2,7 +2,7 @@
 num_portfolios = 50000
 
 #these are the column heads of the portfolio.csv input file, whihc will have closing prices of these 5 stocks
-stock = ['Axis', 'Cipla', 'Fortis', 'Jet', 'Titan']
+stock = ['Raymond', 'Cipla', 'Fortis', 'Jet', 'Titan']
 
 #increased the size of the array to hold the weight values for each stock
 results = np.zeros((4+len(stock)-1,num_portfolios))

@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 
+// custom structure for resulting dataframe from which min vol and max sharpe weights will be extracted
 struct PortfolioResult {
     double return_;
     double volatility;

@@ -2,19 +2,20 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: clang build active file",
-            "command": "/usr/bin/clang",
+            "label": "C/C++: clang++ build all files",
+            "command": "/usr/bin/clang++",
             "args": [
-                "-fcolor-diagnostics",
-                "-fansi-escape-codes",
+                "-std=gnu++14",
                 "-g",
-                "${file}",
+                "-I/opt/homebrew/include/eigen3/",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/main.cpp",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/Statistics.cpp",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/DataHandler.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                "-I/opt/homebrew/Cellar/eigen/3.4.1_0/include/eigen3/Eigen"
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/build/final"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -22,8 +23,7 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "compiler: /usr/bin/clang"
+            }
         }
     ],
     "version": "2.0.0"

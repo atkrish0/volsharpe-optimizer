@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-// Read CSV file and return data as Eigen::MatrixXd
+// Read CSV file and return data in Eigen::MatrixXd format
 Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols) {
 
     std::ifstream inFile(file);
@@ -21,7 +21,7 @@ Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols
     return data;
 }
 
-// Helper function to split a string by a delimiter
+// Helper function to split a string using a delimiter
 std::vector<std::string> DataHandler::split(const std::string& s, char delimiter) {
     std::vector<std::string> tokens;
     std::string token;

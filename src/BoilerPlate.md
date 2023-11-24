@@ -31,3 +31,4 @@ max_sharpe_port = result_frame.iloc[result_frame['sharpe'].idxmax()]
 min_vol_port = result_frame.iloc[result_frame['stdev'].idxmin()]
 
 
+Need to use the quantlib or anyother c++ library to translate this to c++. the output of all this needs to the

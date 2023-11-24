@@ -22,9 +22,10 @@ Eigen::MatrixXd Statistics::covarianceMatrix(const Eigen::MatrixXd& returns) {
     return (centered.adjoint() * centered) / double(n - 1);
 }
 
-// Calculating Volatility (standard deviation)
+// Calculating Volatility (Standard Deviation) of daily returns
 Eigen::VectorXd Statistics::volatility(const Eigen::MatrixXd& returns) {
-    return (returns.rowwise() - returns.colwise().mean()).array().square().colwise().sum().sqrt() / sqrt(returns.rows());
+    Eigen::MatrixXd centered = returns.rowwise() - returns.colwise().mean();
+    return (centered.array().square().colwise().sum() / double(returns.rows() - 1)).sqrt();
 }
 
 // Calculating Correlation matrix

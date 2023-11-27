@@ -3,12 +3,12 @@
 #include <vector>
 
 class DataHandler {
-    public:
-        static Eigen::MatrixXd readCSV(const std::string& file, int rows, int cols);
+public:
+    // Function to read CSV data into an Eigen matrix
+    static Eigen::MatrixXd readCSV(const std::string& file);
 
-    protected:
-        
-
-    private:
-        static std::vector<std::string> split(const std::string& s, char delimiter);
+private:
+    // Helper function to split a string by a delimiter
+    static std::vector<std::string> split(const std::string& s, char delimiter);
 };
+

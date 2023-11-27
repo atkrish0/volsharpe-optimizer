@@ -11,7 +11,7 @@ int main() {
     std::string filePath = "data/portfolio.csv";
     int numberOfRows = 494; 
     int numberOfColumns = 5; 
-    Eigen::MatrixXd portfolio = DataHandler::readCSV(filePath, numberOfRows, numberOfColumns);
+    Eigen::MatrixXd portfolio = DataHandler::readCSV(filePath);
 
     // Calculate daily returns, mean returns, etc. as before
     Eigen::MatrixXd returns = Statistics::calculateReturns(portfolio);

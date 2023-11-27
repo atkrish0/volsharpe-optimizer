@@ -3,37 +3,37 @@
 #include <sstream>
 
 // Read CSV file and return data in Eigen::MatrixXd format
-Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols) {
-
+Eigen::MatrixXd DataHandler::readCSV(const std::string& file) {
     std::ifstream inFile(file);
     std::string line;
-    Eigen::MatrixXd data(rows, cols);
+
+    // Skipping the first line (header)
+    std::getline(inFile, line);
+
+    // Initialize the matrix for 494 rows and 5 columns
+    Eigen::MatrixXd data(494, 5); 
     int row = 0;
     
-    int row = 0;
     while (std::getline(inFile, line)) {
         std::vector<std::string> tokens = split(line, ',');
-        if (tokens.size() < cols) {
-            // Error handling for insufficient columns
+        if (tokens.size() != 5) {
+            // Handle error for rows with incorrect number of columns
             continue;
         }
-        for (int col = 0; col < cols; col++) {
+        for (int col = 0; col < 5; col++) {
             try {
                 data(row, col) = std::stod(tokens[col]);
             } catch (const std::invalid_argument& e) {
-                // Error handling for invalid string-to-double conversion
+                // Handle error for invalid string-to-double conversion
             }
         }
-        if (row < data.rows()) {
-            row++;
-        } else {
-            // Handle or log error: more rows in file than expected
-            break;
-        }
+        row++;
+        if (row >= 494) break; // Ensure we don't exceed the expected number of rows
     }
 
     return data;
 }
+
 
 // Helper function to split a string using a delimiter
 std::vector<std::string> DataHandler::split(const std::string& s, char delimiter) {

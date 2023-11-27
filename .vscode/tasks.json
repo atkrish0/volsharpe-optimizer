@@ -8,9 +8,11 @@
                 "-std=gnu++14",
                 "-g",
                 "-I/opt/homebrew/include/eigen3/",
+                "-I/opt/homebrew/Cellar/eigen/",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/main.cpp",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/Statistics.cpp",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/DataHandler.cpp",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/PortfolioOptimizer.cpp",
                 "-o",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/build/final"
             ],

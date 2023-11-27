@@ -12,12 +12,20 @@ Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols
     
     while (std::getline(inFile, line)) {
         std::vector<std::string> tokens = split(line, ',');
+        if (tokens.size() < cols) {
+            // Error handling for insufficient columns
+            continue;
+        }
         for (int col = 0; col < cols; col++) {
-            data(row, col) = std::stod(tokens[col]);
+            try {
+                data(row, col) = std::stod(tokens[col]);
+            } catch (const std::invalid_argument& e) {
+                // Error handling for invalid string-to-double conversion
+                // e.g., set a default value or log an error message
+            }
         }
         row++;
     }
-
     return data;
 }
 

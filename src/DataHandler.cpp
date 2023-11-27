@@ -10,6 +10,7 @@ Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols
     Eigen::MatrixXd data(rows, cols);
     int row = 0;
     
+    int row = 0;
     while (std::getline(inFile, line)) {
         std::vector<std::string> tokens = split(line, ',');
         if (tokens.size() < cols) {
@@ -21,11 +22,16 @@ Eigen::MatrixXd DataHandler::readCSV(const std::string& file, int rows, int cols
                 data(row, col) = std::stod(tokens[col]);
             } catch (const std::invalid_argument& e) {
                 // Error handling for invalid string-to-double conversion
-                // e.g., set a default value or log an error message
             }
         }
-        row++;
+        if (row < data.rows()) {
+            row++;
+        } else {
+            // Handle or log error: more rows in file than expected
+            break;
+        }
     }
+
     return data;
 }
 

@@ -34,10 +34,14 @@ int main() {
     // Initialize variables to store the max Sharpe and min Volatility portfolios
     PortfolioResult maxSharpePortfolio;
     PortfolioResult minVolatilityPortfolio;
+    // Initializing variables to the opposite ends of their appropriate spectrum 
+    // i.e. max for volatilityy and min for sharpe ratio.
+    // through the optimization process thiss value will change to the correct values
     double maxSharpe = std::numeric_limits<double>::lowest();
     double minVolatility = std::numeric_limits<double>::max();
 
     // Iterate through the portfolios to find the desired ones
+    // i.e the ones with max sharpe ratio and min volatility
     for (const auto& portfolio : optimizedPortfolios) {
         if (portfolio.sharpeRatio > maxSharpe) {
             maxSharpe = portfolio.sharpeRatio;

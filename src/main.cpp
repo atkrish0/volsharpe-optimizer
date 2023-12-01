@@ -8,7 +8,7 @@ using namespace std;
 int main() {
 
     // Read stock prices from CSV
-    std::string filePath = "data/portfolio.csv";
+    std::string filePath = "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/data/portfolio.csv";
     int numberOfRows = 494; 
     int numberOfColumns = 5; 
     Eigen::MatrixXd portfolio = DataHandler::readCSV(filePath);

@@ -36,7 +36,8 @@ double PortfolioOptimizer::calculatePortfolioVolatility(const Eigen::MatrixXd& c
                                                         const std::vector<double>& weights) {
     Eigen::VectorXd w = Eigen::Map<const Eigen::VectorXd>(weights.data(), weights.size());
     double volatility = std::sqrt(w.transpose() * covMatrix * w);
-    return volatility * std::sqrt(252); // Annualizing the volatility
+    double annualized_vol = volatility * std::sqrt(252); // Annualizing the volatility
+    return annualized_vol;
 }
 
 // Optimizes the portfolio over a number of random allocations

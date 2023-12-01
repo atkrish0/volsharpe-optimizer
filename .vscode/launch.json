@@ -6,10 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/build/final",
-            "args": [
-                "-I/opt/homebrew/include/eigen3/",
-                "-I/opt/homebrew/Cellar/eigen/"
-            ],
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

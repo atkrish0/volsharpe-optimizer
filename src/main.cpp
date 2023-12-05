@@ -5,6 +5,7 @@
 #include "PortfolioOptimizer.h"
 #include "MaxSharpePortfolio.h"
 #include "MinVolatilityPortfolio.h"
+#include "PortfolioDisplay.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ int main() {
     Eigen::MatrixXd covMatrix = Statistics::covarianceMatrix(returns);
     Eigen::VectorXd volatility = Statistics::volatility(returns);
 
-    // Output stats
+    // Output preliminary statistics
     std::cout << "Mean Daily Returns:\n" << meanReturns << "\n\n";
     std::cout << "Covariance Matrix:\n" << covMatrix << "\n\n";
     std::cout << "Volatility:\n" << volatility << "\n\n";
@@ -39,28 +40,8 @@ int main() {
     PortfolioResult maxSharpePortfolio = maxSharpeStrategy.executeStrategy(optimizedPortfolios);
     PortfolioResult minVolatilityPortfolio = minVolStrategy.executeStrategy(optimizedPortfolios);
 
-    // Output the weights for the maximized Sharpe ratio portfolio
-    std::cout << "\nMaximized Sharpe Ratio Portfolio:" << std::endl;
-    std::cout << "Weights: ";
-    for (const auto& weight : maxSharpePortfolio.weights) {
-        std::cout << std::fixed << std::setprecision(4) << weight << " ";
-    }
-    std::cout << "\nWeights (Percentage): ";
-    for (const auto& weight : maxSharpePortfolio.weights) {
-        std::cout << std::fixed << std::setprecision(2) << weight * 100 << "% ";
-    }
-    std::cout << "\nSharpe Ratio: " << std::fixed << std::setprecision(4) << maxSharpePortfolio.sharpeRatio << std::endl;
+    PortfolioDisplay::displayPortfolio("Maximum Sharpe Ratio Portfolio", maxSharpePortfolio);
+    PortfolioDisplay::displayPortfolio("Minimum Volatility Portfolio", minVolatilityPortfolio);
 
-    // Output the weights for the minimized Volatility portfolio
-    std::cout << "\nMinimized Volatility Portfolio:" << std::endl;
-    std::cout << "Weights: ";
-    for (const auto& weight : minVolatilityPortfolio.weights) {
-        std::cout << std::fixed << std::setprecision(4) << weight << " ";
-    }
-    std::cout << "\nWeights (Percentage): ";
-    for (const auto& weight : minVolatilityPortfolio.weights) {
-        std::cout << std::fixed << std::setprecision(2) << weight * 100 << "% ";
-    }
-    std::cout << "\nVolatility: " << std::fixed << std::setprecision(4) << minVolatilityPortfolio.volatility << std::endl;
     return 0;
 }

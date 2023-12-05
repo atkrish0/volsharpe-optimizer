@@ -12,6 +12,8 @@
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/Statistics.cpp",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/DataHandler.cpp",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/PortfolioOptimizer.cpp",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/MaxSharpePortfolio.cpp",
+                "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/src/MinVolatilityPortfolio.cpp",
                 "-o",
                 "/Users/atheeshkrishnan/AK/DEV/OOP1/rutgersmqf-portfolio-optimization/build/final"
             ],

@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <vector>
-#include "PortfolioOptimizer.h" // Assumes PortfolioResult is defined here
+#include "PortfolioOptimizer.h"
 
 class PortfolioDisplay {
 public:
     static void displayPortfolio(const std::string& title, const PortfolioResult& portfolio);
 };
 
-#endif // PORTFOLIODISPLAY_H
+#endif

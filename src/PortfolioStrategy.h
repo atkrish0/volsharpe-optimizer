@@ -11,8 +11,6 @@ public:
 
     // Method to execute the strategy
     virtual PortfolioResult executeStrategy(const std::vector<PortfolioResult>& portfolios) = 0;
-
-    // Other common methods or properties...
 };
 
-#endif // PORTFOLIOSTRATEGY_H
+#endif

@@ -27,4 +27,4 @@ private:
                                                const std::vector<double>& weights);
 };
 
-#endif // PORTFOLIOOPTIMIZER_H
+#endif

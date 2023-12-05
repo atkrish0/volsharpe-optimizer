@@ -11,4 +11,4 @@ public:
     PortfolioResult executeStrategy(const std::vector<PortfolioResult>& portfolios) override;
 };
 
-#endif // MAXSHARPEPORTFOLIO_H
+#endif

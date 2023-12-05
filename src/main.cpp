@@ -2,6 +2,8 @@
 #include "DataHandler.h"
 #include "Statistics.h"
 #include "PortfolioOptimizer.h"
+#include "MaxSharpePortfolio.h"
+#include "MinVolatilityPortfolio.h"
 
 using namespace std;
 
@@ -30,6 +32,27 @@ int main() {
     int numPortfolios = 50000;
     std::vector<PortfolioResult> optimizedPortfolios = PortfolioOptimizer::optimizePortfolio(
         meanReturns, covMatrix, numPortfolios, numberOfColumns);
+
+    // Strategy Execution
+    MaxSharpePortfolio maxSharpeStrategy;
+    MinVolatilityPortfolio minVolStrategy;
+
+    PortfolioResult maxSharpePortfolio = maxSharpeStrategy.executeStrategy(optimizedPortfolios);
+    PortfolioResult minVolatilityPortfolio = minVolStrategy.executeStrategy(optimizedPortfolios);
+
+    // Output the weights for the max Sharpe ratio portfolio
+    cout << "Max Sharpe Ratio Portfolio Weights:" << endl;
+    for (double weight : maxSharpePortfolio.weights) {
+        cout << weight << " ";
+    }
+    cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << endl;
+
+    // Output the weights for the min Volatility portfolio
+    cout << "Min Volatility Portfolio Weights:" << endl;
+    for (double weight : minVolatilityPortfolio.weights) {
+        cout << weight << " ";
+    }
+    cout << "\nVolatility: " << minVolatilityPortfolio.volatility << endl;
 
     // Initialize variables to store the max Sharpe and min Volatility portfolios
     PortfolioResult maxSharpePortfolio;

@@ -5,7 +5,7 @@ void PortfolioDisplay::displayPortfolio(const std::string& title, const Portfoli
     using namespace std;
 
     cout << "\n" << title << ":" << endl;
-    cout << "Weights (Decimal): ";
+    cout << "Weights: ";
     for (const auto& weight : portfolio.weights) {
         cout << fixed << setprecision(4) << weight << " ";
     }

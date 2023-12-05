@@ -17,16 +17,11 @@ int main() {
     int numberOfColumns = 5; 
     Eigen::MatrixXd portfolio = DataHandler::readCSV(filePath);
 
-    // Calculate daily returns, mean returns, etc. as before
+    // Calculate daily returns, mean returns, covariace matrix etc
     Eigen::MatrixXd returns = Statistics::calculateReturns(portfolio);
     Eigen::VectorXd meanReturns = Statistics::meanDailyReturns(returns);
     Eigen::MatrixXd covMatrix = Statistics::covarianceMatrix(returns);
     Eigen::VectorXd volatility = Statistics::volatility(returns);
-
-    // Output preliminary statistics
-    std::cout << "Mean Daily Returns:\n" << meanReturns << "\n\n";
-    std::cout << "Covariance Matrix:\n" << covMatrix << "\n\n";
-    std::cout << "Volatility:\n" << volatility << "\n\n";
 
     // Set the number of random portfolio weights to generate
     int numPortfolios = 1000000;

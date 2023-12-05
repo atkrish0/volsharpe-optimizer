@@ -54,41 +54,44 @@ int main() {
     }
     cout << "\nVolatility: " << minVolatilityPortfolio.volatility << endl;
 
+    // ===========================
+
     // Initialize variables to store the max Sharpe and min Volatility portfolios
-    PortfolioResult maxSharpePortfolio;
-    PortfolioResult minVolatilityPortfolio;
+    // PortfolioResult maxSharpePortfolio;
+    // PortfolioResult minVolatilityPortfolio;
+
     // Initializing variables to the opposite ends of their appropriate spectrum 
     // i.e. max for volatilityy and min for sharpe ratio.
     // through the optimization process thiss value will change to the correct values
-    double maxSharpe = std::numeric_limits<double>::lowest();
-    double minVolatility = std::numeric_limits<double>::max();
+    // double maxSharpe = std::numeric_limits<double>::lowest();
+    // double minVolatility = std::numeric_limits<double>::max();
 
     // Iterate through the portfolios to find the desired ones
     // i.e the ones with max sharpe ratio and min volatility
-    for (const auto& portfolio : optimizedPortfolios) {
-        if (portfolio.sharpeRatio > maxSharpe) {
-            maxSharpe = portfolio.sharpeRatio;
-            maxSharpePortfolio = portfolio;
-        }
-        if (portfolio.volatility < minVolatility) {
-            minVolatility = portfolio.volatility;
-            minVolatilityPortfolio = portfolio;
-        }
-    }
+    // for (const auto& portfolio : optimizedPortfolios) {
+    //     if (portfolio.sharpeRatio > maxSharpe) {
+    //         maxSharpe = portfolio.sharpeRatio;
+    //         maxSharpePortfolio = portfolio;
+    //     }
+    //     if (portfolio.volatility < minVolatility) {
+    //         minVolatility = portfolio.volatility;
+    //         minVolatilityPortfolio = portfolio;
+    //     }
+    // }
 
-    // Output the weights for the max Sharpe ratio portfolio
-    std::cout << "Max Sharpe Ratio Portfolio Weights:" << std::endl;
-    for (double weight : maxSharpePortfolio.weights) {
-        std::cout << weight << " ";
-    }
-    std::cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << std::endl;
+    // // Output the weights for the max Sharpe ratio portfolio
+    // std::cout << "Max Sharpe Ratio Portfolio Weights:" << std::endl;
+    // for (double weight : maxSharpePortfolio.weights) {
+    //     std::cout << weight << " ";
+    // }
+    // std::cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << std::endl;
 
-    // Output the weights for the min Volatility portfolio
-    std::cout << "Min Volatility Portfolio Weights:" << std::endl;
-    for (double weight : minVolatilityPortfolio.weights) {
-        std::cout << weight << " ";
-    }
-    std::cout << "\nVolatility: " << minVolatilityPortfolio.volatility << std::endl;
+    // // Output the weights for the min Volatility portfolio
+    // std::cout << "Min Volatility Portfolio Weights:" << std::endl;
+    // for (double weight : minVolatilityPortfolio.weights) {
+    //     std::cout << weight << " ";
+    // }
+    // std::cout << "\nVolatility: " << minVolatilityPortfolio.volatility << std::endl;
 
     return 0;
 }

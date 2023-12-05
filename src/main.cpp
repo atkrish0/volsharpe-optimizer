@@ -20,16 +20,14 @@ int main() {
     Eigen::VectorXd meanReturns = Statistics::meanDailyReturns(returns);
     Eigen::MatrixXd covMatrix = Statistics::covarianceMatrix(returns);
     Eigen::VectorXd volatility = Statistics::volatility(returns);
-    Eigen::MatrixXd corrMatrix = Statistics::correlationMatrix(returns);
 
     // Output stats
     std::cout << "Mean Daily Returns:\n" << meanReturns << "\n\n";
     std::cout << "Covariance Matrix:\n" << covMatrix << "\n\n";
     std::cout << "Volatility:\n" << volatility << "\n\n";
-    std::cout << "Correlation Matrix:\n" << corrMatrix << "\n\n";
 
     // Set the number of random portfolio weights to generate
-    int numPortfolios = 50000;
+    int numPortfolios = 100000;
     std::vector<PortfolioResult> optimizedPortfolios = PortfolioOptimizer::optimizePortfolio(
         meanReturns, covMatrix, numPortfolios, numberOfColumns);
 
@@ -40,58 +38,19 @@ int main() {
     PortfolioResult maxSharpePortfolio = maxSharpeStrategy.executeStrategy(optimizedPortfolios);
     PortfolioResult minVolatilityPortfolio = minVolStrategy.executeStrategy(optimizedPortfolios);
 
-    // Output the weights for the max Sharpe ratio portfolio
+    // Output the weights for the maximized Sharpe ratio portfolio
     cout << "Max Sharpe Ratio Portfolio Weights:" << endl;
     for (double weight : maxSharpePortfolio.weights) {
         cout << weight << " ";
     }
     cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << endl;
 
-    // Output the weights for the min Volatility portfolio
+    // Output the weights for the minimized Volatility portfolio
     cout << "Min Volatility Portfolio Weights:" << endl;
     for (double weight : minVolatilityPortfolio.weights) {
         cout << weight << " ";
     }
     cout << "\nVolatility: " << minVolatilityPortfolio.volatility << endl;
-
-    // ===========================
-
-    // Initialize variables to store the max Sharpe and min Volatility portfolios
-    // PortfolioResult maxSharpePortfolio;
-    // PortfolioResult minVolatilityPortfolio;
-
-    // Initializing variables to the opposite ends of their appropriate spectrum 
-    // i.e. max for volatilityy and min for sharpe ratio.
-    // through the optimization process thiss value will change to the correct values
-    // double maxSharpe = std::numeric_limits<double>::lowest();
-    // double minVolatility = std::numeric_limits<double>::max();
-
-    // Iterate through the portfolios to find the desired ones
-    // i.e the ones with max sharpe ratio and min volatility
-    // for (const auto& portfolio : optimizedPortfolios) {
-    //     if (portfolio.sharpeRatio > maxSharpe) {
-    //         maxSharpe = portfolio.sharpeRatio;
-    //         maxSharpePortfolio = portfolio;
-    //     }
-    //     if (portfolio.volatility < minVolatility) {
-    //         minVolatility = portfolio.volatility;
-    //         minVolatilityPortfolio = portfolio;
-    //     }
-    // }
-
-    // // Output the weights for the max Sharpe ratio portfolio
-    // std::cout << "Max Sharpe Ratio Portfolio Weights:" << std::endl;
-    // for (double weight : maxSharpePortfolio.weights) {
-    //     std::cout << weight << " ";
-    // }
-    // std::cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << std::endl;
-
-    // // Output the weights for the min Volatility portfolio
-    // std::cout << "Min Volatility Portfolio Weights:" << std::endl;
-    // for (double weight : minVolatilityPortfolio.weights) {
-    //     std::cout << weight << " ";
-    // }
-    // std::cout << "\nVolatility: " << minVolatilityPortfolio.volatility << std::endl;
 
     return 0;
 }

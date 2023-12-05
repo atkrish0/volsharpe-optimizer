@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "DataHandler.h"
 #include "Statistics.h"
 #include "PortfolioOptimizer.h"
@@ -27,7 +28,7 @@ int main() {
     std::cout << "Volatility:\n" << volatility << "\n\n";
 
     // Set the number of random portfolio weights to generate
-    int numPortfolios = 100000;
+    int numPortfolios = 1000000;
     std::vector<PortfolioResult> optimizedPortfolios = PortfolioOptimizer::optimizePortfolio(
         meanReturns, covMatrix, numPortfolios, numberOfColumns);
 
@@ -39,18 +40,27 @@ int main() {
     PortfolioResult minVolatilityPortfolio = minVolStrategy.executeStrategy(optimizedPortfolios);
 
     // Output the weights for the maximized Sharpe ratio portfolio
-    cout << "Max Sharpe Ratio Portfolio Weights:" << endl;
-    for (double weight : maxSharpePortfolio.weights) {
-        cout << weight << " ";
+    std::cout << "\nMaximized Sharpe Ratio Portfolio:" << std::endl;
+    std::cout << "Weights: ";
+    for (const auto& weight : maxSharpePortfolio.weights) {
+        std::cout << std::fixed << std::setprecision(4) << weight << " ";
     }
-    cout << "\nSharpe Ratio: " << maxSharpePortfolio.sharpeRatio << endl;
+    std::cout << "\nWeights (Percentage): ";
+    for (const auto& weight : maxSharpePortfolio.weights) {
+        std::cout << std::fixed << std::setprecision(2) << weight * 100 << "% ";
+    }
+    std::cout << "\nSharpe Ratio: " << std::fixed << std::setprecision(4) << maxSharpePortfolio.sharpeRatio << std::endl;
 
     // Output the weights for the minimized Volatility portfolio
-    cout << "Min Volatility Portfolio Weights:" << endl;
-    for (double weight : minVolatilityPortfolio.weights) {
-        cout << weight << " ";
+    std::cout << "\nMinimized Volatility Portfolio:" << std::endl;
+    std::cout << "Weights: ";
+    for (const auto& weight : minVolatilityPortfolio.weights) {
+        std::cout << std::fixed << std::setprecision(4) << weight << " ";
     }
-    cout << "\nVolatility: " << minVolatilityPortfolio.volatility << endl;
-
+    std::cout << "\nWeights (Percentage): ";
+    for (const auto& weight : minVolatilityPortfolio.weights) {
+        std::cout << std::fixed << std::setprecision(2) << weight * 100 << "% ";
+    }
+    std::cout << "\nVolatility: " << std::fixed << std::setprecision(4) << minVolatilityPortfolio.volatility << std::endl;
     return 0;
 }

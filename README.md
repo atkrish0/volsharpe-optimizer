@@ -1,7 +1,7 @@
 # volsharpe-optimizer
 
 ## GEN:
-tldr: Rudimentary optimer which provides portfolio weights for maximum sharpe/minimized volatility portfolio
+tldr: Rudimentary optimizer which provides portfolio weights for maximum sharpe/minimized volatility portfolio
 Implements a portfolio optimization framework in C++, with results compared to equal weighted out-of-sample data.
 
 ## Data:

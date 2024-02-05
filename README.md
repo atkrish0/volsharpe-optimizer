@@ -1,12 +1,8 @@
-# rutgersmqf-portfolio-optimization
+# volsharpe-optimizer
 
 ## GEN:
-tldr: Final project done for the OOP1 course in the Rutgers MQF program. 
-
-Fall 2023. 
-
+tldr: Rudimentary optimer which provides portfolio weights for maximum sharpe/minimized volatility portfolio
 Implements a portfolio optimization framework in C++, with results compared to equal weighted out-of-sample data.
-
 
 ## Data:
 
@@ -26,10 +22,4 @@ Will use preexisting data set of list companies in the Bombay Stock Exchange.
 
 #3: Calculate historical prices and covariance matrices - using Eigen library in C++
 
-#4: Define the optimization problem and set it up with NLOpt library
 
-#5: Plot the results with GNUPlot
-
-#6: Implement all the above in an object oriented structure with classes and objects for each, i.e., optimize, plotter, marketdata etc.
-
-## Results:
